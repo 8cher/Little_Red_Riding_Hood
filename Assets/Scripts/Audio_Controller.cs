@@ -13,7 +13,7 @@ public class Audio_Controller : MonoBehaviour
         audio_Mixer.SetFloat("Volume_SE", 1f);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 
