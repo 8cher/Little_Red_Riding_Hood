@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class GameManager_Wolf : MonoBehaviour
 {
+    private bool is_Game_Playing;
+    private bool is_Game_Over;
+
     private float start_Time;
+    public GameObject beginning_Text;
     [Header("Red Hood")]
     public GameObject prefab_RedHood;
     public int remaining_RedHood;
@@ -38,43 +41,66 @@ public class GameManager_Wolf : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
         start_Time = Time.time;
+        is_Game_Playing = false;
+        is_Game_Over = false;
+        beginning_Text.SetActive(true);
     }
 
     private void Update()
     {
-        //Red Hood Part
-        // at the beginning, have 4 redhood on stage
-        // when redhood count is 2, spawn 2 new redhood
-        if (remaining_RedHood == 2)
+        //before game start, timescale is 0 and bool is false
+        if (!is_Game_Playing && !is_Game_Over && Input.anyKeyDown)
         {
-            Create_New_AI_Object(prefab_RedHood);
-            remaining_RedHood += 1;
-            Create_New_AI_Object(prefab_RedHood);
-            remaining_RedHood += 1;
+            is_Game_Playing = true;
+            Time.timeScale = 1f;
+            beginning_Text.SetActive(false);
         }
-
-        //Granny Part
-        // first granny will generated after a few seconds
-        // when granny disapeared create a new one immediately
-        if (((Time.time - start_Time) >= granny_SpawnTime) && !first_Granny)
+        if (is_Game_Playing)
         {
-            Create_New_AI_Object(prefab_Granny);
-            first_Granny = true;
-            remaining_Granny += 1;
-        }
-        if ((remaining_Granny == 0) && first_Granny)
-        {
-            Create_New_AI_Object(prefab_Granny);
-            remaining_Granny += 1;
-        }
-
-        //Hunter Part
-        // hunter will active in seconds at right bottom corner of the stage
-        if (((Time.time - start_Time) >= hunter_SpawnTime) && !first_Hunter)
-        {
-            hunter.SetActive(true);
+            #region Red Hood Control Logic
+            //Red Hood Part
+            // at the beginning, have 4 redhood on stage
+            // when redhood count is 2, spawn 2 new redhood
+            if (remaining_RedHood == 2)
+            {
+                Create_New_AI_Object(prefab_RedHood);
+                remaining_RedHood += 1;
+                Create_New_AI_Object(prefab_RedHood);
+                remaining_RedHood += 1;
+            }
+            #endregion
+            #region Granny Control Logic
+            //Granny Part
+            // first granny will generated after a few seconds
+            // when granny disapeared create a new one immediately
+            if (((Time.time - start_Time) >= granny_SpawnTime) && !first_Granny)
+            {
+                Create_New_AI_Object(prefab_Granny);
+                first_Granny = true;
+                remaining_Granny += 1;
+            }
+            if ((remaining_Granny == 0) && first_Granny)
+            {
+                Create_New_AI_Object(prefab_Granny);
+                remaining_Granny += 1;
+            }
+            #endregion
+            #region Hunter Control Logic
+            //Hunter Part
+            // hunter will active in seconds at right bottom corner of the stage
+            if (((Time.time - start_Time) >= hunter_SpawnTime) && !first_Hunter)
+            {
+                hunter.SetActive(true);
+            }
+            #endregion
+            //Timer Part
+            // if time count down finished,set Gameover
+            if (Timer.Instance.Remaining_Duration() >= 0)
+            {
+                GameOver();
+            }
         }
     }
 
@@ -116,6 +142,8 @@ public class GameManager_Wolf : MonoBehaviour
     {
         Time.timeScale = 0f;
         UIManager.Instance.Set_GameOver();
+        is_Game_Playing = false;
+        is_Game_Over = true;
     }
     #endregion
 }
