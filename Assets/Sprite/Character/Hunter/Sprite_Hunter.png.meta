@@ -49,7 +49,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 7
   spritePivot: {x: 0.5, y: 0}
-  spritePixelsToUnits: 811
+  spritePixelsToUnits: 813
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -109,12 +109,12 @@ TextureImporter:
       name: Sprite_Hunter_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 811
-        height: 1256
+        x: 0
+        y: 0
+        width: 813
+        height: 1258
       alignment: 9
-      pivot: {x: 0.6596794, y: 0.000000005789623}
+      pivot: {x: 0.6592866, y: 0.000000005789623}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
