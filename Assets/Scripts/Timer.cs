@@ -45,6 +45,11 @@ public class Timer : MonoBehaviour
         return (int)(Time.time - end_Time);
     }
 
+    public int Spent_Duration()
+    {
+        return (int)(Time.time - start_Time);
+    }
+
     public TextMeshProUGUI timer_Time_Text;
     private void Set_Time(float float_Time)
     {

@@ -8,6 +8,8 @@ using DG.Tweening;
 
 public class Button_Method : MonoBehaviour
 {
+    public AudioSource audio_Source;
+
     #region Start Panel
     public GameObject start_Panel;
     public GameObject credits_Panel;
@@ -16,6 +18,7 @@ public class Button_Method : MonoBehaviour
     //play button
     public void OnButtonClick_Play()
     {
+        audio_Source.Play();
         start_Panel.SetActive(false);
         select_Panel.SetActive(true);
     }
@@ -24,18 +27,21 @@ public class Button_Method : MonoBehaviour
 
     public void OnButtonClick_Credits()
     {
+        audio_Source.Play();
         start_Panel.SetActive(false);
         credits_Panel.SetActive(true);
     }
     public void OnButtonClick_Exit_Credits()
     {
+        audio_Source.Play();
         start_Panel.SetActive(true);
         credits_Panel.SetActive(false);
     }
 
     //Exit button
-    public static void OnButtonClick_Exit()
+    public void OnButtonClick_Exit()
     {
+        audio_Source.Play();
         Application.Quit();
     }
 
@@ -44,24 +50,27 @@ public class Button_Method : MonoBehaviour
     #region Game Mode Select
 
     //Scene redhood
-    public static void On_Play_RH()
+    public void OnButtonClick_Play_RH()
     {
+        audio_Source.Play();
         Debug.Log("Red Hood Mode Selected");
         DOTween.Clear(true);
         SceneManager.LoadScene("Scene_Redhood");
     }
 
     //Scene wolf
-    public static void On_Play_Wolf()
+    public void OnButtonClick_Play_Wolf()
     {
+        audio_Source.Play();
         Debug.Log("Wolf Mode Selected");
         DOTween.Clear(true);
         SceneManager.LoadScene("Scene_Wolf");
     }
 
     //Scene Hunter
-    public static void On_Play_Hunter()
+    public void OnButtonClick_Play_Hunter()
     {
+        audio_Source.Play();
         Debug.Log("Hunter Mode Selected");
         DOTween.Clear(true);
         SceneManager.LoadScene("Scene_Hunter");
@@ -70,18 +79,22 @@ public class Button_Method : MonoBehaviour
     #endregion
 
     //restart button
-    public static void On_Restart()
+    public void OnButtonClick_Restart()
     {
+        audio_Source.Play();
         Debug.Log("Restart Button Clicked");
         DOTween.Clear(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //Back to menu Button
-    public static void On_Back_2Menu()
+    public GameObject background_Music;
+    public void OnButtonClick_Back2Menu()
     {
+        audio_Source.Play();
         Debug.Log("Back to menu Button Clicked");
         DOTween.Clear(true);
+        Destroy(background_Music);
         SceneManager.LoadScene("MainScene");
     }
 }
