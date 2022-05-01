@@ -94,7 +94,7 @@ public class Button_Method : MonoBehaviour
         audio_Source.Play();
         Debug.Log("Back to menu Button Clicked");
         DOTween.Clear(true);
-        Destroy(background_Music);
+        Destroy(GameObject.Find("BGM"));
         SceneManager.LoadScene("MainScene");
     }
 }
